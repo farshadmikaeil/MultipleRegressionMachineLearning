@@ -1,0 +1,19 @@
+import turicreate
+sales = turicreate.SFrame.read_csv("Philadelphia_Crime_Rate_noNA.csv")
+turicreate.show(sales["CrimeRate"], sales["HousePrice"])
+turicreate.show(sales["CrimeRate"], sales["HousePrice"])
+
+
+crime_model = turicreate.linear_regression.create(sales, target="HousePrice",features=["CrimeRate"],validation_set=None,verbose=None)
+
+
+import matplotlib.pyplot as plt
+plt.plot(sales['CrimeRate'],sales['HousePrice'],'.', sales['CrimeRate'],crime_model.predict(sales),'-')
+
+sales_noCC = sales[sales['MilesPhila'] != 0.0] 
+turicreate.show(sales_noCC['CrimeRate'], sales_noCC['HousePrice'])
+plt.plot(sales_noCC['CrimeRate'], sales_noCC['HousePrice'], '.',
+         sales_noCC['CrimeRate'], crime_model.predict(sales_noCC), '-',
+         sales_noCC['CrimeRate'], crime_model_noCC.predict(sales_noCC), '-')
+
+    
